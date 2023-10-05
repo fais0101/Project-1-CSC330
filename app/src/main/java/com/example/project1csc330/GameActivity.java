@@ -88,4 +88,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     };
+
+    //add onclick for game buttons
 }
