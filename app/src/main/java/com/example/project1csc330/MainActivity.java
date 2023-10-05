@@ -77,12 +77,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ten_seconds:
                 playTime = 10;
                 break;
-            default:
-                playTime = 5;
-                break;
+
         }
 
     }
-//extra comment
+
 
 }
