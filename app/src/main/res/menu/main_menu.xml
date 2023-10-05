@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/dropdown_menu"
+        android:title="Select Play time"
+        app:showAsAction="ifRoom">
+        <menu android:id="@+id/sub_menu">
+
+            <item android:id="@+id/one_second"
+                android:title="1 second"
+                android:onClick="onMenuItemSelected">
+            </item>
+            <item android:id="@+id/two_seconds"
+                android:title="2 seconds"
+                android:onClick="onMenuItemSelected">
+            </item>
+            <item android:id="@+id/five_seconds"
+                android:title="5 seconds"
+                android:onClick="onMenuItemSelected">
+            </item>
+            <item android:id="@+id/ten_seconds"
+                android:title="10 seconds"
+                android:onClick="onMenuItemSelected">
+            </item>
+        </menu>
+
+    </item>
+</menu>

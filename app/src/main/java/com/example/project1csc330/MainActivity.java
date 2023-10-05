@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,6 +56,32 @@ public class MainActivity extends AppCompatActivity {
 
         intent.putExtra("play time", playTime);
         launchGame.launch(intent);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    public void onMenuItemSelected(MenuItem menuItem){
+
+        switch (menuItem.getItemId()){
+            case R.id.one_second:
+                playTime = 1;
+                break;
+            case R.id.two_seconds:
+                playTime = 2;
+                break;
+            case R.id.five_seconds:
+                playTime = 5;
+                break;
+            case R.id.ten_seconds:
+                playTime = 10;
+                break;
+            default:
+                playTime = 5;
+                break;
+        }
+
     }
 
 
