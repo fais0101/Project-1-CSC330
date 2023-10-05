@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    int playTime;
+    public int playTime;
+    public double playerChanceSplit;
+    public Player player1;
+    public Player player2;
 //---------------------------------------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         playTime = 5; //this signifies 5 seconds... may need to change later
+        playerChanceSplit = 0.5;
     }
 //---------------------------------------------------------------------------------------------------------------------------
     //create an activity result launcher and register for activity result
@@ -28,12 +33,25 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
-
+            //check winner... update the stars
         }
     });
     //---------------------------------------------------------------------------------------------------------------------------
     public void onClickPlayButton(View view){
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+        double randomNum = Math.random();
+        int startingPlayer = 0;
+        if(randomNum < playerChanceSplit ){
+            //player 1 starts
+            startingPlayer = 1;
+            intent.putExtra("starting_player", 1);
+        } else if (randomNum > playerChanceSplit) {
+            startingPlayer = 2;
+            intent.putExtra("starting_player", 2);
+        }
+        Log.i("starting player", String.valueOf(startingPlayer));
+
+
         intent.putExtra("play time", playTime);
         launchGame.launch(intent);
     }
