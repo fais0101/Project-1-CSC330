@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity {
     private Player player1;
@@ -15,6 +17,8 @@ public class GameActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private ImageView p1Image;
     private ImageView p2Image;
+    private TextView activePlayerName;
+
     private int startingPlayer;
     int playTime;
 
@@ -52,6 +56,8 @@ public class GameActivity extends AppCompatActivity {
         //set the imageViews to the player profile pics
         p1Image = findViewById(R.id.player_1_profile_pic);
         p2Image = findViewById(R.id.player_2_profile_pic);
+        activePlayerName = findViewById(R.id.active_player_name);
+
 
 
         //run
@@ -59,8 +65,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private final Runnable runnable = new Runnable() {
-
-
 
         @Override
         public void run() {
@@ -71,11 +75,13 @@ public class GameActivity extends AppCompatActivity {
                     p1Image.setVisibility(View.INVISIBLE);
                     p2Image.setVisibility(View.VISIBLE);
                     player2.setIsActive(true);
+                    activePlayerName.setText("Player 2");
                 } else if (player2.getIsActive()) {
                     player2.setIsActive(false);
                     p2Image.setVisibility(View.INVISIBLE);
                     p1Image.setVisibility(View.VISIBLE);
                     player1.setIsActive(true);
+                    activePlayerName.setText("Player 1");
                 }
 
                 //set bar back to full and run again
@@ -90,4 +96,61 @@ public class GameActivity extends AppCompatActivity {
     };
 
     //add onclick for game buttons
+    public void onClickGameButton(View view){
+        ImageButton theButton;
+        switch(view.getId()){
+            case R.id.game_button_1:
+                markButton(R.id.game_button_1);
+                break;
+            case R.id.game_button_2:
+                markButton(R.id.game_button_2);
+                break;
+            case R.id.game_button_3:
+                theButton = findViewById(R.id.game_button_3);
+                if(player1.getIsActive()) {
+                    theButton.setImageResource(R.mipmap.player_1_profile_pic);
+                    player1.setIsActive(false);
+                }
+                else {
+                    theButton.setImageResource(R.mipmap.player_2_profile_pic);
+                    player2.setIsActive(false);
+                }
+                myProgressBar.setProgress(0);
+                theButton.setClickable(false);
+
+                break;
+            case R.id.game_button_4:
+                theButton = findViewById(R.id.game_button_4);
+                if(player1.getIsActive()) {
+                    theButton.setImageResource(R.mipmap.player_1_profile_pic);
+                    player1.setIsActive(false);
+                }
+                else {
+                    theButton.setImageResource(R.mipmap.player_2_profile_pic);
+                    player2.setIsActive(false);
+                }
+                myProgressBar.setProgress(0);
+                theButton.setClickable(false);
+
+                break;
+        }
+
+    }
+    public void markButton(int buttonID){
+        ImageButton theButton = findViewById(buttonID);
+        if(player1.getIsActive()){
+            theButton.setImageResource(R.mipmap.player_1_profile_pic);
+            player1.setIsActive(false);
+        }
+        //mark location and check winner
+        else {
+            theButton.setImageResource(R.mipmap.player_2_profile_pic);
+            player2.setIsActive(false);
+        }
+        myProgressBar.setProgress(0);
+        theButton.setClickable(false);
+    }
+    public void checkWinner(){
+
+    }
 }

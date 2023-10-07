@@ -17,7 +17,7 @@
                     android:id="@+id/player_1_profile_pic"
                     android:layout_width="@dimen/profile_pic_size"
                     android:layout_height="@dimen/profile_pic_size"
-                    android:src="@mipmap/player_image">
+                    android:src="@mipmap/player_1_profile_pic">
                 </ImageView>
 
             </LinearLayout>
@@ -41,7 +41,7 @@
             android:id="@+id/player_2_profile_pic"
             android:layout_width="@dimen/profile_pic_size"
             android:layout_height="@dimen/profile_pic_size"
-            android:src="@mipmap/player_image"></ImageView>
+            android:src="@mipmap/player_2_profile_pic"></ImageView>
     </LinearLayout>
 
     <LinearLayout
@@ -76,17 +76,20 @@
             android:id="@+id/game_button_1"
             android:layout_width="@dimen/game_button_size"
             android:layout_height="@dimen/game_button_size"
-            android:paddingRight="@dimen/game_button_size">
+            android:paddingRight="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton
             android:id="@+id/game_button_2"
             android:layout_width="@dimen/game_button_size"
-            android:layout_height="@dimen/game_button_size">
+            android:layout_height="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton
-            android:id="@+id/game_button3"
+            android:id="@+id/game_button_3"
             android:layout_width="@dimen/game_button_size"
-            android:layout_height="@dimen/game_button_size">
+            android:layout_height="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
 
         </ImageButton>
 
@@ -101,17 +104,20 @@
             android:id="@+id/game_button_4"
             android:layout_width="@dimen/game_button_size"
             android:layout_height="@dimen/game_button_size"
-            android:paddingRight="@dimen/game_button_size">
+            android:paddingRight="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton
             android:id="@+id/game_button_5"
             android:layout_width="@dimen/game_button_size"
-            android:layout_height="@dimen/game_button_size">
+            android:layout_height="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton
-            android:id="@+id/game_button6"
+            android:id="@+id/game_button_6"
             android:layout_width="@dimen/game_button_size"
-            android:layout_height="@dimen/game_button_size">
+            android:layout_height="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
 
         </ImageButton>
 
@@ -126,17 +132,20 @@
             android:id="@+id/game_button_7"
             android:layout_width="@dimen/game_button_size"
             android:layout_height="@dimen/game_button_size"
-            android:paddingRight="15px">
+            android:paddingRight="15px"
+            android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton
             android:id="@+id/game_button_8"
             android:layout_width="@dimen/game_button_size"
-            android:layout_height="@dimen/game_button_size">
+            android:layout_height="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton
-            android:id="@+id/game_button9"
+            android:id="@+id/game_button_9"
             android:layout_width="@dimen/game_button_size"
-            android:layout_height="@dimen/game_button_size">
+            android:layout_height="@dimen/game_button_size"
+            android:onClick="onClickGameButton">
 
         </ImageButton>
 

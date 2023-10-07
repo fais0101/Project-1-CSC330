@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/player_image">
+            android:src="@mipmap/player_2_profile_pic">
         </ImageView>
     </LinearLayout>
 
@@ -55,7 +55,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/player_image">
+            android:src="@mipmap/player_2_profile_pic">
         </ImageView>
     </LinearLayout>
 
