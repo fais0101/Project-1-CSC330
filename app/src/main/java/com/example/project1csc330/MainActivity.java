@@ -3,15 +3,20 @@ package com.example.project1csc330;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.net.Uri;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,15 +24,27 @@ public class MainActivity extends AppCompatActivity {
     public double playerChanceSplit;
     public Player player1;
     public Player player2;
+    public int winner;
+    public RatingBar player1Rating;
+    public RatingBar player2Rating;
+    Button playButton;
+    EditText editText1;
+    EditText editText2;
 //---------------------------------------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        player1 = new Player();
+        player2 = new Player();
         playTime = 5; //this signifies 5 seconds... may need to change later
         playerChanceSplit = 0.5;
+        player1Rating = findViewById(R.id.player_1_rating_bar);
+        player2Rating = findViewById(R.id.player_2_rating_bar);
+        editText1 = (EditText) findViewById(R.id.player_1_edit_text);
+        editText2 = (EditText) findViewById(R.id.player_2_edit_text);
+
     }
 //---------------------------------------------------------------------------------------------------------------------------
     //create an activity result launcher and register for activity result
@@ -36,6 +53,25 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(ActivityResult result) {
             //check winner... update the stars
+            Intent resultData;
+            playButton = findViewById(R.id.play_button);
+            if (result.getResultCode() == Activity.RESULT_OK){
+                resultData = result.getData();
+                winner = resultData.getIntExtra("winner", 0);
+            }
+            if(winner == 1){
+
+                player1Rating.setRating(player1Rating.getRating() + 1);
+                if(player1Rating.getRating() == 5)
+                    playButton.setVisibility(View.INVISIBLE);
+
+            }
+            else if (winner == 2) {
+                player2Rating.setRating(player2Rating.getRating() + 1);
+                if(player2Rating.getRating() == 5)
+                    playButton.setVisibility(View.INVISIBLE);
+            }
+
         }
     });
     //---------------------------------------------------------------------------------------------------------------------------
@@ -47,16 +83,48 @@ public class MainActivity extends AppCompatActivity {
             //player 1 starts
             startingPlayer = 1;
             intent.putExtra("starting_player", 1);
+            playerChanceSplit -= 0.1;
         } else if (randomNum > playerChanceSplit) {
             startingPlayer = 2;
             intent.putExtra("starting_player", 2);
+            playerChanceSplit += 0.1;
         }
         Log.i("starting player", String.valueOf(startingPlayer));
 
+        player1.setName(editText1.getText().toString());
+        player2.setName(editText2.getText().toString());
 
+        Log.i("player1 name", player1.getName());
+        Log.i("player2 name", player2.getName());
+
+        intent.putExtra("Player 1 name", player1.getName());
+        intent.putExtra("Player 2 name", player2.getName());
         intent.putExtra("play time", playTime);
+
         launchGame.launch(intent);
     }
+
+    public void onImageClick(View view){
+
+        switch(view.getId()){
+            case R.id.player_1_image:
+                startGallery.launch("image/*");
+                break;
+            case R.id.player_2_image:
+                startGallery.launch("image/*");
+                break;
+        }
+    }
+
+    ActivityResultLauncher<String> startGallery = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri result) {
+
+                }
+            }{
+    })
+
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -77,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ten_seconds:
                 playTime = 10;
                 break;
+            case R.id.reset_button:
+                //reset the ratings and restart the tournament
+                playButton.setVisibility(View.VISIBLE);
+                player1Rating.setRating(0);
+                player2Rating.setRating(0);
 
         }
 

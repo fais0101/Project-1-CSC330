@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="game_button_style">
+        <item name="android:layout_width">@dimen/game_button_size</item>
+        <item name="android:layout_height">@dimen/game_button_size</item>
+        <item name="android:layout_marginRight">@dimen/game_button_margin</item>
+        <item name="android:layout_marginLeft">@dimen/game_button_margin</item>
+    </style>
+
+    <style name="player_1_edit_text">
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">100px</item>
+        <item name="android:text">Player 1</item>
+    </style>
+
+    <style name="player_2_edit_text">
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">100px</item>
+        <item name="android:text">Player 1</item>
+    </style>
+</resources>
