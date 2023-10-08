@@ -51,34 +51,35 @@ public class GameActivity extends AppCompatActivity {
         p2Image = findViewById(R.id.player_2_profile_pic);
 
         //initialize the players
-        player1 = new Player(0,true);
-        player2 = new Player(0, false);
+        player1 = this.getIntent().getParcelableExtra("Player1");
+        player2 = this.getIntent().getParcelableExtra("Player2");
 
-        //set starting player
-        player1.setName(this.getIntent().getStringExtra("Player 1 name"));
-        player2.setName(this.getIntent().getStringExtra("Player 2 name"));
         startingPlayer = this.getIntent().getIntExtra("starting_player",1);
 
 
+        //find starting players
         if(startingPlayer == 1){
-            //initialize the players
             player1.setIsActive(true);
             player2.setIsActive(false);
             activePlayerName.setText(player1.getName());
-
             p2Image.setVisibility(View.INVISIBLE);
         } else if (startingPlayer == 2) {
             player1.setIsActive(false);
             player2.setIsActive(true);
             activePlayerName.setText(player2.getName());
-
             p1Image.setVisibility(View.INVISIBLE);
         }
         Log.i("startingPLayer in GameActivity", String.valueOf(startingPlayer));
 
         //set the imageViews to the player profile pics
-        p1Image = findViewById(R.id.player_1_profile_pic);
-        p2Image = findViewById(R.id.player_2_profile_pic);
+        Log.i("Image", String.valueOf(player1.getImageUri()));
+
+
+        p1Image.setImageURI(player1.getImageUri());
+
+            //p1Image.setImageURI();
+        p2Image.setImageURI(player2.getImageUri());
+
 
         //run
         runnable.run();
@@ -169,11 +170,21 @@ public class GameActivity extends AppCompatActivity {
         ImageButton theButton = findViewById(buttonID);
         handler.removeCallbacks(runnable);
         if(player1.getIsActive()){
-            theButton.setImageResource(R.drawable.player_1_profile_pic);
+            //if there was no image selected use the default green or red
+            if (player1.getImageUri() == null){
+                theButton.setImageResource(R.drawable.player_1_profile_pic);
+            }
+            else
+                theButton.setImageURI(player1.getImageUri());
         }
         //mark location and check winner
         else if(player2.getIsActive()) {
-            theButton.setImageResource(R.drawable.player_2_profile_pic);
+            if (player2.getImageUri() == null){
+                theButton.setImageResource(R.drawable.player_2_profile_pic);
+            }
+            else
+                theButton.setImageURI(player2.getImageUri());
+
         }
 
         myProgressBar.setProgress(myProgressBar.getMax());
@@ -241,7 +252,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void freezeButtons(){
         ImageButton button;
-        String[] buttonNames = getResources().getStringArray(R.array.buttonArray);
 
         button = findViewById(R.id.game_button_1);
         button.setClickable(false);
@@ -263,14 +273,6 @@ public class GameActivity extends AppCompatActivity {
         button.setClickable(false);
     }
 
-    public boolean buttonIsMarked(int resID){
-        ImageButton button = findViewById(resID);
-
-        if(!button.isClickable()){
-            return true;
-        }
-        return false;
-    }
 
     public int getActivePlayer(){
         if(player1.getIsActive())

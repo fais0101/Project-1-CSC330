@@ -70,7 +70,6 @@
         <ImageButton
             style="@style/game_button_style"
             android:id="@+id/game_button_1"
-            android:paddingRight="@dimen/game_button_size"
             android:onClick="onClickGameButton">
         </ImageButton>
         <ImageButton

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,18 +59,18 @@ public class MainActivity extends AppCompatActivity {
             if (result.getResultCode() == Activity.RESULT_OK){
                 resultData = result.getData();
                 winner = resultData.getIntExtra("winner", 0);
-            }
-            if(winner == 1){
+                if(winner == 1){
 
-                player1Rating.setRating(player1Rating.getRating() + 1);
-                if(player1Rating.getRating() == 5)
-                    playButton.setVisibility(View.INVISIBLE);
+                    player1Rating.setRating(player1Rating.getRating() + 1);
+                    if(player1Rating.getRating() == 5)
+                        playButton.setVisibility(View.INVISIBLE);
 
-            }
-            else if (winner == 2) {
-                player2Rating.setRating(player2Rating.getRating() + 1);
-                if(player2Rating.getRating() == 5)
-                    playButton.setVisibility(View.INVISIBLE);
+                }
+                else if (winner == 2) {
+                    player2Rating.setRating(player2Rating.getRating() + 1);
+                    if(player2Rating.getRating() == 5)
+                        playButton.setVisibility(View.INVISIBLE);
+                }
             }
 
         }
@@ -79,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
         double randomNum = Math.random();
         int startingPlayer = 0;
+
+        //determine starter and adjust the player chance split
         if(randomNum < playerChanceSplit ){
             //player 1 starts
             startingPlayer = 1;
@@ -94,11 +97,16 @@ public class MainActivity extends AppCompatActivity {
         player1.setName(editText1.getText().toString());
         player2.setName(editText2.getText().toString());
 
+//        if(player1.getImageUri() != null ){
+//            player1.setImageUri(Uri.parse("android.resource://" + this.getPackageName() + "/" + String.valueOf(R.drawable.player_1_profile_pic)));
+//        }
         Log.i("player1 name", player1.getName());
         Log.i("player2 name", player2.getName());
 
-        intent.putExtra("Player 1 name", player1.getName());
-        intent.putExtra("Player 2 name", player2.getName());
+
+        //send player objects as parcelable
+        intent.putExtra("Player1", player1);
+        intent.putExtra("Player2", player2);
         intent.putExtra("play time", playTime);
 
         launchGame.launch(intent);
@@ -108,9 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch(view.getId()){
             case R.id.player_1_image:
+                player1.setUsingCustomImage(true);
                 startGallery.launch("image/*");
                 break;
             case R.id.player_2_image:
+                player2.setUsingCustomImage(true);
                 startGallery.launch("image/*");
                 break;
         }
@@ -121,9 +131,26 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(Uri result) {
 
+                    if(result != null){
+                        if(player1.isUsingCustomImage()){
+                            //check which player is calling it then set player request to false
+                            ((ImageView)findViewById(R.id.player_1_image)).setImageURI(result);
+                            player1.setImageUri(result);
+                            //using this value as a request.. so we reset it to false after we are done setting the image
+                            //this is just to see who is actually making the request
+                            player1.setUsingCustomImage(false);
+                        }
+                        else if(player2.isUsingCustomImage()){
+                            ((ImageView)findViewById(R.id.player_2_image)).setImageURI(result);
+                            player2.setImageUri(result);
+                            Log.i("setImageUri", String.valueOf(player2.getImageUri()));
+                            player2.setUsingCustomImage(false);
+                        }
+                    }
+
                 }
-            }{
-    })
+
+    });
 
 
     public boolean onCreateOptionsMenu(Menu menu){

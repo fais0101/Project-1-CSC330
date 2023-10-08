@@ -4,7 +4,7 @@
     <dimen name="play_button_height">200px</dimen>
     <dimen name="play_button_width">400px</dimen>
     <dimen name="profile_pic_size">70dp</dimen>
-    <dimen name="game_button_size">250px</dimen>
+    <dimen name="game_button_size">100dp</dimen>
     <dimen name="game_button_margin">15px</dimen>
 
 
