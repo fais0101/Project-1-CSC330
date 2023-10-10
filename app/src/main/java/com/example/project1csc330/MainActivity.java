@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initialize our players and our variables needed in other methods
         player1 = new Player();
         player2 = new Player();
         playTime = 5; //this signifies 5 seconds... may need to change later
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            //in case of RESULT_CANCELLED we do nothing
+
         }
     });
     //---------------------------------------------------------------------------------------------------------------------------
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("starting_player", 1);
             playerChanceSplit -= 0.1;
         } else if (randomNum > playerChanceSplit) {
+            //player 2 starts
             startingPlayer = 2;
             intent.putExtra("starting_player", 2);
             playerChanceSplit += 0.1;
@@ -97,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
         player1.setName(editText1.getText().toString());
         player2.setName(editText2.getText().toString());
 
-//        if(player1.getImageUri() != null ){
-//            player1.setImageUri(Uri.parse("android.resource://" + this.getPackageName() + "/" + String.valueOf(R.drawable.player_1_profile_pic)));
-//        }
+
         Log.i("player1 name", player1.getName());
         Log.i("player2 name", player2.getName());
 

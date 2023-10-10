@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
         p1Image = findViewById(R.id.player_1_profile_pic);
         p2Image = findViewById(R.id.player_2_profile_pic);
 
-        //initialize the players
+        //initialize the players sent as parcelable from main activity
         player1 = this.getIntent().getParcelableExtra("Player1");
         player2 = this.getIntent().getParcelableExtra("Player2");
 
@@ -71,13 +71,10 @@ public class GameActivity extends AppCompatActivity {
         }
         Log.i("startingPLayer in GameActivity", String.valueOf(startingPlayer));
 
-        //set the imageViews to the player profile pics
-        Log.i("Image", String.valueOf(player1.getImageUri()));
 
 
+        //set the image uris from player objects
         p1Image.setImageURI(player1.getImageUri());
-
-            //p1Image.setImageURI();
         p2Image.setImageURI(player2.getImageUri());
 
 
@@ -105,7 +102,7 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-    //add onclick for game buttons
+    //check which button was clicked, add the play to the game board, check for a winner, then change the active player
     public void onClickGameButton(View view){
         int winner = 0;
         switch(view.getId()){
@@ -166,6 +163,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    //Marks the UI button to the image that the player is using
     public void markButton(int buttonID){
         ImageButton theButton = findViewById(buttonID);
         handler.removeCallbacks(runnable);
@@ -179,6 +178,7 @@ public class GameActivity extends AppCompatActivity {
         }
         //mark location and check winner
         else if(player2.getIsActive()) {
+            //if there was no image selected use the default green or red
             if (player2.getImageUri() == null){
                 theButton.setImageResource(R.drawable.player_2_profile_pic);
             }
@@ -249,6 +249,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    //set all of the items to unclickable to avoid more clicks when the activity is finishing
 
     public void freezeButtons(){
         ImageButton button;
