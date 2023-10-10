@@ -23,7 +23,8 @@ public class Player implements Parcelable {
         this.isActive = isActive;
     }
 
-    // for parcelable
+
+    //For parcelable
     protected Player(Parcel in) {
         score = in.readInt();
         isActive = in.readByte() != 0;

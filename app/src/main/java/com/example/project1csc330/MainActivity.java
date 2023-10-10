@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //initialize our players and our variables needed in other methods
         player1 = new Player();
         player2 = new Player();
-        playTime = 5; //this signifies 5 seconds... may need to change later
+        playTime = 5; //this signifies 5 seconds
         playerChanceSplit = 0.5;
         player1Rating = findViewById(R.id.player_1_rating_bar);
         player2Rating = findViewById(R.id.player_2_rating_bar);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             //check winner... update the stars
             Intent resultData;
             playButton = findViewById(R.id.play_button);
-            if (result.getResultCode() == Activity.RESULT_OK){
+            if (result.getResultCode() == Activity.RESULT_OK){ //Returns RESULT_OK if there was a winner
                 resultData = result.getData();
                 winner = resultData.getIntExtra("winner", 0);
                 if(winner == 1){
