@@ -24,8 +24,8 @@ public class GameActivity extends AppCompatActivity {
     private TextView activePlayerName;
 
     private int startingPlayer;
-    int playTime;
-    int[][] gameBoard;
+    private int playTime;
+    private int[][] gameBoard;
     private int turns = 0;
     private int winner = 0;
 
@@ -105,9 +105,11 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-    //add onclick for game buttons
+
     public void onClickGameButton(View view){
         int winner = 0;
+
+        //check all buttons... mark the button.. update gameBoard.. check for winner.. change player
         switch(view.getId()){
             case R.id.game_button_1:
                 markButton(R.id.game_button_1);
@@ -166,6 +168,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    //Marks the UI button with the image that the player is using
     public void markButton(int buttonID){
         ImageButton theButton = findViewById(buttonID);
         handler.removeCallbacks(runnable);
@@ -193,7 +197,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void changeActivePlayer(){
-        //change player object to an inactive state and set the image to be invisible
+        //change player object to an inactive state and set the top image to be invisible
         if(player1.getIsActive()){
             player1.setIsActive(false);
             p1Image.setVisibility(View.INVISIBLE);
@@ -250,6 +254,8 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+
+    //sets all of the buttons to be unclickable to avoid more clicks when the activity is finishing
     public void freezeButtons(){
         ImageButton button;
 

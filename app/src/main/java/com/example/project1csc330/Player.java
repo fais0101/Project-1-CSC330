@@ -23,6 +23,7 @@ public class Player implements Parcelable {
         this.isActive = isActive;
     }
 
+    //For parcelable
     protected Player(Parcel in) {
         score = in.readInt();
         isActive = in.readByte() != 0;
@@ -78,6 +79,7 @@ public class Player implements Parcelable {
         return 0;
     }
 
+    //For Parcelable
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeInt(score);
